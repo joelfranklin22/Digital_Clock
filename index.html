@@ -32,14 +32,17 @@
         <div class="nav-head">
           <h2 class="aside-nav-title">Settings</h2>
         </div>
-        
+
         <div class="template-mode">
           <div class="clock-template-mode-day">
             <span class="date-year">Date and Year</span>
-            <span class="date-toggle"><i class="fa-solid fa-toggle-off" id="toggle-off"></i></span>
-        </div>
-        
-        <h3 class="aside-nav-title">Clock Template</h3>
+
+            <span class="date-toggle">
+              <i class="fa-solid fa-toggle-off" id="toggle"></i>
+            </span>
+          </div>
+
+          <h3 class="aside-nav-title">Clock Template</h3>
           <div class="clock-template-mode">
             <span class="time">24:00:00</span>
             <span class="name">Digital</span>
@@ -62,11 +65,14 @@
         </div>
       </aside>
     </section>
-    <section class="container">
-      <span id="hours">00</span>
-      <span id="minutes">00</span>
-      <span id="seconds">00</span>
+    <section class="day-time-conatiner">
+      <div class="container">
+        <div id="hours">00</div>
+        <div id="minutes">00</div>
+        <div id="seconds">00</div>
+      </div>
+      <div id="day-year"></div>
     </section>
   </body>
-  <script src="script.jss"></script>
+  <script src="script.js"></script>
 </html>
