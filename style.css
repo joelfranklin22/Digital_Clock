@@ -1,3 +1,15 @@
+@font-face {
+  font-family: "Quartz-Regular";
+  src: url("/mini-project/digital-clock/assets/QuartzMSRegular.TTF");
+}
+@font-face {
+  font-family:"klien-condensed";
+  src: url("/mini-project/digital-clock/assets/DIN-Condensed-Bold.ttf");
+}
+@font-face {
+  font-family:"Corporate";
+  src: url("/mini-project/digital-clock/assets/fonnts.com-Corporate_S_Pro_ExtraBold_Italic.otf");
+}
 :root {
   --primary-bg-color: rgb(0, 0, 0);
 }
@@ -44,13 +56,17 @@ ul > li {
 #hours,
 #minutes,
 #seconds {
+  font-family: "Quartz-Regular",sans-serif;
+  font-weight: 400;
+  font-style: normal;
   font-size: 10rem;
 }
-#day-year{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.7rem;
+#day-year {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Corporate",sans-serif;
+  font-size: 1.7rem;
 }
 /* Settings aside bar */
 
@@ -64,6 +80,11 @@ ul > li {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+.head-logo{
+  font-family: "klien-condensed",sans-serif;
+  font-size: 2.2rem;
+  letter-spacing: 2px;
 }
 
 .template-mode {
@@ -101,17 +122,29 @@ ul > li {
 
 /* Different colors */
 
-.blue .time {
-  color: #3498ff;
+.blue-theme-btn .time {
+  color: #66b8f0;
 }
 
-.red .time {
-  color: red;
+.red-theme-btn .time {
+  color: #953628;
 }
 
-.orange .time {
-  background-color: orange;
+.orange-theme-btn .time {
+  background-color: #fb7c00;
   color: rgb(0, 0, 0);
+}
+.settings-panel {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 1000px;
+  transform: translateX(100%);
+  transition: transform 0.4s ease;
+}
+
+.show-panel {
+  transform: translateX(0);
 }
 
 /* Toggle day and Year */
