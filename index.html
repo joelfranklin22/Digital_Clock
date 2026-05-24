@@ -13,21 +13,17 @@
   <body>
     <header class="nav-bar">
       <div class="head-logo">Digital Clock</div>
-      <div class="mode-change">
-        <div class="mode">
-          Digital Clock <i class="fa-solid fa-caret-down"></i>
-        </div>
-      </div>
       <div class="right-nav">
         <ul>
-          <li><i class="fa-solid fa-expand"></i></li>
-          <!-- <li><i class="fa-solid fa-moon"></i></li> -->
-          <li><i class="fa-solid fa-sun"></i></li>
-          <li><i class="fa-solid fa-gear"></i></li>
+          <li id="fullscreen-btn"><i class="fa-solid fa-expand"></i></li>
+          <li id="light-mode"><i class="fa-solid fa-sun"></i></li>
+          <li id="settings-btn">
+            <i class="fa-solid fa-gear"></i>
+          </li>
         </ul>
       </div>
     </header>
-    <section>
+    <section class="settings-panel">
       <aside class="aside-nav">
         <div class="nav-head">
           <h2 class="aside-nav-title">Settings</h2>
@@ -43,24 +39,24 @@
           </div>
 
           <h3 class="aside-nav-title">Clock Template</h3>
-          <div class="clock-template-mode">
+          <div class="clock-template-mode black-theme-btn">
             <span class="time">24:00:00</span>
             <span class="name">Digital</span>
           </div>
 
-          <div class="clock-template-mode blue">
+          <div class="clock-template-mode blue-theme-btn">
             <span class="time">24:00:00</span>
             <span class="name">Digital-Blue</span>
           </div>
 
-          <div class="clock-template-mode red">
+          <div class="clock-template-mode red-theme-btn">
             <span class="time">24:00:00</span>
-            <span class="name">Digital-Red</span>
+            <span class="name-red">Digital-Red</span>
           </div>
 
-          <div class="clock-template-mode orange">
+          <div class="clock-template-mode orange-theme-btn">
             <span class="time">24:00:00</span>
-            <span class="name">Digital-Orange</span>
+            <span class="name-orange">Digital-Orange</span>
           </div>
         </div>
       </aside>
