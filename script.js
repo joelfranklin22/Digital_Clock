@@ -1,13 +1,15 @@
 // Timing Logic
+let sec = 0;
+let min = 0;
+let hour = 0;
 
-let sec = document.getElementById("seconds");
-let min = document.getElementById("minutes");
-let hours = document.getElementById("hours");
-sec = 0;
-min = 0;
-hours = 0;
+// Initialize with current time
+let now = new Date();
+sec = now.getSeconds();
+min = now.getMinutes();
+hour = now.getHours();
 
-setInterval(() => {
+function updateClock() {
   sec++;
   if (sec == 60) {
     sec = 0;
@@ -15,18 +17,21 @@ setInterval(() => {
   }
   if (min == 60) {
     min = 0;
-    hours++;
+    hour++;
   }
-  if (hours == 24) {
-    hours == 0;
+  if (hour == 24) {
+    hour = 0;
   }
 
   document.getElementById("seconds").innerHTML =
-    sec < 10 ? ":" + "0" + sec : ":" + sec;
+    ":"+(sec < 10 ? ":" + "0" + sec : sec);
   document.getElementById("minutes").innerHTML =
-    min < 10 ? ":" + "0" + min : ":" + min;
-  document.getElementById("hours").innerHTML = hours < 10 ? "0" + hours : hours;
-}, 1000);
+    ":" + (min < 10 ? "0" + min : min);
+  document.getElementById("hours").innerHTML = hour < 10 ? "0" + hour : hour;
+}
+
+updateClock();
+setInterval(updateClock, 1000);
 
 // Day and Date
 function dayAndYear() {
@@ -81,9 +86,10 @@ toggle.addEventListener("click", () => {
 let setPanel = document.getElementById("settings-btn");
 
 let panel = document.querySelector(".settings-panel");
-
+let clockContainer = document.querySelector(".day-time-container");
 setPanel.addEventListener("click", () => {
   panel.classList.toggle("show-panel");
+  clockContainer.classList.toggle("move-clock");
 });
 
 // Color Modes
@@ -103,10 +109,10 @@ blue.addEventListener("click", () => {
 let red = document.querySelector(".red-theme-btn");
 
 red.addEventListener("click", () => {
-  document.querySelector(".container").style.color = "#953628";
-  document.querySelector(".nav-bar").style.color = "#953628";
-  document.querySelector(".settings-panel").style.color = "#953628";
-  document.querySelector("#day-year").style.color = "#953628";
+  document.querySelector(".container").style.color = "#a41515";
+  document.querySelector(".nav-bar").style.color = "#a41515";
+  document.querySelector(".settings-panel").style.color = "#a41515";
+  document.querySelector("#day-year").style.color = "#a41515";
 });
 
 // Orange
@@ -146,12 +152,21 @@ fullscreenBtn.addEventListener("click", () => {
 // light mode
 
 let light = document.getElementById("light-mode");
+let dark = false;
 light.addEventListener("click", () => {
-
-  document.body.style.backgroundColor="#ffffff";
-  document.querySelector(".container").style.color = "#000000";
-  document.querySelector(".nav-bar").style.color = "#000000";
-  document.querySelector(".name").style.color = "#ffffff";
-  document.querySelector(".settings-panel").style.color = "#000000";
-  document.querySelector("#day-year").style.color = "#000000";
+  dark = !dark;
+  if (dark) {
+    document.body.style.backgroundColor = "#ffffff";
+    document.querySelector(".container").style.color = "#000000";
+    document.querySelector(".nav-bar").style.color = "#000000";
+    document.querySelector(".name-color").style.color = "#000000";
+    document.querySelector(".settings-panel").style.color = "#000000";
+    document.querySelector("#day-year").style.color = "#000000";
+  } else {
+    document.body.style.backgroundColor = "#000000";
+    document.querySelector(".container").style.color = "#ffffff";
+    document.querySelector(".nav-bar").style.color = "#ffffff";
+    document.querySelector(".settings-panel").style.color = "#ffffff";
+    document.querySelector("#day-year").style.color = "#ffffff";
+  }
 });
