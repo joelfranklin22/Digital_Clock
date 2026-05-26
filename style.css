@@ -1,14 +1,22 @@
 @font-face {
   font-family: "Quartz-Regular";
-  src: url("/mini-project/digital-clock/assets/QuartzMSRegular.TTF");
+  src: url("./assets/QuartzMSRegular.TTF");
 }
 @font-face {
   font-family: "klien-condensed";
-  src: url("/mini-project/digital-clock/assets/DIN-Condensed-Bold.ttf");
+  src: url("./assets/DIN-Condensed-Bold.ttf");
 }
 @font-face {
   font-family: "Corporate";
-  src: url("/mini-project/digital-clock/assets/fonnts.com-Corporate_S_Pro_ExtraBold_Italic.otf");
+  src: url("./assets/fonnts.com-Corporate_S_Pro_ExtraBold_Italic.otf");
+}
+@font-face {
+  font-family: "fact_narrow";
+  src: url("./assets/Fact_Narrow-Bold.otf");
+}
+@font-face {
+  font-family: "fabrizio";
+  src: url(./assets/Fabrizio-Regular.otf);
 }
 :root {
   --primary-bg-color: rgb(0, 0, 0);
@@ -43,6 +51,42 @@ ul > li {
   list-style: none;
   cursor: pointer;
 }
+.clock-mode {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  cursor: pointer;
+}
+.head-logo {
+  font-family: "fabrizio", sans-serif;
+  font-size: 2.2rem;
+  letter-spacing: 2px;
+}
+
+/* Hover Effects for Timer and Clock */
+.live-mode,
+.timer-mode {
+  position: relative;
+  cursor: pointer;
+  font-family: "fact_narrow", sans-serif;
+}
+
+.live-mode::after,
+.timer-mode::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: #ffffff;
+  transition: width 0.3s ease;
+}
+
+.live-mode:hover::after,
+.timer-mode:hover::after {
+  width: 100%;
+}
 
 /* Time Clock */
 
@@ -55,12 +99,41 @@ ul > li {
 }
 #hours,
 #minutes,
-#seconds {
+#seconds,
+#hours-timer,
+#minutes-timer,
+#seconds-timer {
   font-family: "Quartz-Regular", sans-serif;
   font-weight: 400;
   font-style: normal;
   font-size: 10rem;
 }
+/* btn change for pause play reset */
+.active-btn {
+  color: #00ff88;
+}
+.play,
+.pause,
+.reset {
+  font-size: 2rem;
+  cursor: pointer;
+}
+#timer-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1.4rem;
+}
+.day-time-container {
+  display: none;
+}
+.timer-container {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
 #day-year {
   display: flex;
   align-items: center;
@@ -80,11 +153,6 @@ ul > li {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-}
-.head-logo {
-  font-family: "klien-condensed", sans-serif;
-  font-size: 2.2rem;
-  letter-spacing: 2px;
 }
 
 .template-mode {
@@ -119,7 +187,8 @@ ul > li {
   font-size: 1rem;
   font-weight: bold;
 }
-.day-time-container {
+.day-time-container,
+.timer-container {
   transition: transform 0.4s ease;
 }
 .move-clock {
@@ -158,8 +227,9 @@ ul > li {
 .clock-template-mode-day {
   display: flex;
   flex-direction: row;
-  gap: 5rem;
+  justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
 #toggle {
   font-size: 2.5rem;
@@ -169,73 +239,4 @@ ul > li {
 
 .active {
   color: #007bff;
-}
-
-
-/* Mobile */
-
-@media (max-width: 768px) {
-  .nav-bar {
-    padding: 10px 15px;
-
-    font-size: 1rem;
-  }
-
-  .head-logo {
-    font-size: 1.5rem;
-  }
-
-  .right-nav ul {
-    gap: 15px;
-  }
-  .container {
-    gap: 0.6rem;
-  }
-  #hours,
-  #minutes,
-  #seconds {
-    font-size: 3rem;
-  }
-  #day-year {
-    font-size: 1rem;
-  }
-  .settings-panel {
-    z-index: 1000;
-    height: 100vh;
-    overflow-y: auto;
-  }
-
-  .nav-bar {
-    position: relative;
-    z-index: 2000;
-  }
-
-  .settings-panel::-webkit-scrollbar {
-    width: 8px;
-  }
-  .settings-panel::-webkit-scrollbar-track {
-    background: #111;
-  }
-  .settings-panel::-webkit-scrollbar-thumb {
-    background: #444;
-    border-radius: 10px;
-  }
-  .settings-panel::-webkit-scrollbar-thumb:hover {
-    background: #777;
-  }
-  .move-clock {
-    transform: translateX(-120px);
-  }
-}
-
-/* Tablet */
-
-@media (max-width: 1024px) {
-  .settings-panel {
-    width: 280px;
-  }
-
-  .nav-bar {
-    padding: 15px 20px;
-  }
 }
