@@ -24,7 +24,7 @@ function updateClock() {
   }
 
   document.getElementById("seconds").innerHTML =
-    ":"+(sec < 10 ? ":" + "0" + sec : sec);
+    ":" + (sec < 10 ? ":" + "0" + sec : sec);
   document.getElementById("minutes").innerHTML =
     ":" + (min < 10 ? "0" + min : min);
   document.getElementById("hours").innerHTML = hour < 10 ? "0" + hour : hour;
@@ -33,6 +33,55 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 1000);
 
+// Timer Logic
+let timer_sec = 0;
+let timer_min = 0;
+let timer_hour = 0;
+let timer_interval = null;
+
+function updateTimer() {
+  timer_sec++;
+  if (timer_sec == 60) {
+    timer_sec = 0;
+    timer_min++;
+  }
+  if (timer_min == 60) {
+    timer_min = 0;
+    timer_hour++;
+  }
+  if (timer_hour == 24) timer_hour = 0;
+
+  document.querySelector("#seconds-timer").innerHTML =
+    ":" + (timer_sec < 10 ? "0" + timer_sec : timer_sec);
+  document.querySelector("#minutes-timer").innerHTML =
+    ":" + (timer_min < 10 ? "0" + timer_min : timer_min);
+  document.querySelector("#hours-timer").innerHTML =
+    timer_hour < 10 ? "0" + timer_hour : timer_hour;
+}
+// Start Btn
+document.querySelector(".play").addEventListener("click", () => {
+  if (!timer_interval) {
+    updateTimer();
+    timer_interval = setInterval(updateTimer, 1000);
+  }
+});
+// Pause Btn
+document.querySelector(".pause").addEventListener("click", () => {
+  clearInterval(timer_interval);
+  timer_interval = null;
+});
+// Reset Btn
+document.querySelector(".reset").addEventListener("click", () => {
+  clearInterval(timer_interval);
+  timer_interval = null;
+  timer_sec = 0;
+  timer_min = 0;
+  timer_hour = 0;
+
+  document.querySelector("#seconds-timer").innerHTML = ":00";
+  document.querySelector("#minutes-timer").innerHTML = ":00";
+  document.querySelector("#hours-timer").innerHTML = "00";
+});
 // Day and Date
 function dayAndYear() {
   let today = new Date();
@@ -86,10 +135,12 @@ toggle.addEventListener("click", () => {
 let setPanel = document.getElementById("settings-btn");
 
 let panel = document.querySelector(".settings-panel");
+let timerContainer = document.querySelector(".timer-container");
 let clockContainer = document.querySelector(".day-time-container");
 setPanel.addEventListener("click", () => {
   panel.classList.toggle("show-panel");
   clockContainer.classList.toggle("move-clock");
+  timerContainer.classList.toggle("move-clock");
 });
 
 // Color Modes
@@ -99,6 +150,7 @@ let blue = document.querySelector(".blue-theme-btn");
 
 blue.addEventListener("click", () => {
   document.querySelector(".container").style.color = "#66b8f0";
+  document.querySelector(".side-timer").style.color = "#66b8f0";
   document.querySelector(".nav-bar").style.color = "#66b8f0";
   document.querySelector(".settings-panel").style.color = "#66b8f0";
   document.querySelector("#day-year").style.color = "#66b8f0";
@@ -110,6 +162,7 @@ let red = document.querySelector(".red-theme-btn");
 
 red.addEventListener("click", () => {
   document.querySelector(".container").style.color = "#a41515";
+  document.querySelector(".side-timer").style.color = "#a41515";
   document.querySelector(".nav-bar").style.color = "#a41515";
   document.querySelector(".settings-panel").style.color = "#a41515";
   document.querySelector("#day-year").style.color = "#a41515";
@@ -121,6 +174,7 @@ let orange = document.querySelector(".orange-theme-btn");
 
 orange.addEventListener("click", () => {
   document.querySelector(".container").style.color = "#fb7c00";
+  document.querySelector(".side-timer").style.color = "#fb7c00";
   document.querySelector(".nav-bar").style.color = "#fb7c00";
   document.querySelector(".settings-panel").style.color = "#fb7c00";
   document.querySelector("#day-year").style.color = "#fb7c00";
@@ -132,6 +186,7 @@ let black = document.querySelector(".black-theme-btn");
 
 black.addEventListener("click", () => {
   document.querySelector(".container").style.color = "#ffffff";
+  document.querySelector(".side-timer").style.color = "#ffffff";
   document.querySelector(".nav-bar").style.color = "#ffffff";
   document.querySelector(".settings-panel").style.color = "#ffffff";
   document.querySelector("#day-year").style.color = "#ffffff";
@@ -158,6 +213,7 @@ light.addEventListener("click", () => {
   if (dark) {
     document.body.style.backgroundColor = "#ffffff";
     document.querySelector(".container").style.color = "#000000";
+    document.querySelector(".side-timer").style.color = "#000000";
     document.querySelector(".nav-bar").style.color = "#000000";
     document.querySelector(".name-color").style.color = "#000000";
     document.querySelector(".settings-panel").style.color = "#000000";
@@ -165,8 +221,57 @@ light.addEventListener("click", () => {
   } else {
     document.body.style.backgroundColor = "#000000";
     document.querySelector(".container").style.color = "#ffffff";
+    document.querySelector(".side-timer").style.color = "#ffffff";
     document.querySelector(".nav-bar").style.color = "#ffffff";
     document.querySelector(".settings-panel").style.color = "#ffffff";
     document.querySelector("#day-year").style.color = "#ffffff";
   }
+});
+
+// Switch Timer and Clock
+
+document.querySelector(".day-time-container").classList.add("show");
+
+// Clock btn
+document.querySelector(".live-mode").addEventListener("click", () => {
+  document.querySelector(".day-time-container").classList.add("show");
+  document.querySelector(".timer-container").classList.remove("show");
+  document.querySelector(".clock-template-mode-day").style.display = "flex";
+  document.querySelector("#toggle").style.display = "inline";
+
+  // ✅ toggle state check
+  if (toggleis) {
+    dayAndYear();
+  } else {
+    document.getElementById("day-year").innerHTML = "";
+  }
+});
+// Timer btn
+document.querySelector(".timer-mode").addEventListener("click", () => {
+  document.querySelector(".timer-container").classList.add("show");
+  document.querySelector(".day-time-container").classList.remove("show");
+  document.querySelector(".clock-template-mode-day").style.display = "none";
+});
+
+// play pause reset
+document.querySelector(".pause").addEventListener("click", () => {
+  document.querySelector(".pause").classList.add("active-btn");
+  document.querySelector(".play").classList.remove("active-btn"); 
+});
+
+document.querySelector(".play").addEventListener("click", () => {
+  document.querySelector(".play").classList.add("active-btn");
+  document.querySelector(".pause").classList.remove("active-btn"); 
+});
+
+// Timer and Clock hovering
+document.querySelector(".live-mode").classList.add("active-btn");
+
+document.querySelector(".timer-mode").addEventListener("click", () => {
+  document.querySelector(".timer-mode").classList.add("active-btn");
+  document.querySelector(".live-mode").classList.remove("active-btn"); 
+});
+document.querySelector(".live-mode").addEventListener("click", () => {
+  document.querySelector(".live-mode").classList.add("active-btn");
+  document.querySelector(".timer-mode").classList.remove("active-btn"); 
 });
